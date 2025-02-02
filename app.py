@@ -1,5 +1,4 @@
-# app.py
-
+import os
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -16,8 +15,7 @@ def about():
 def projects():
     return render_template('projects.html')
 
-
-@app.route('/achievements', endpoint='achievements')
+@app.route('/achievements')
 def achievements():
     return render_template('achievements.html')
 
@@ -27,7 +25,8 @@ def contact():
 
 @app.route('/coding_profile')
 def skills():
-    return render_template('skills.html',endpoint='coding_profile')
+    return render_template('skills.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
