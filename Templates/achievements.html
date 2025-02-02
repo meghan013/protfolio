@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navigation */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        header nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        header nav ul li {
+            margin: 0 30px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        body {
+            background-color: #121212;
+            color: #eee;
+            text-align: center;
+        }
+
+        .certificates {
+            padding: 50px 5%;
+        }
+
+        .certificates h1 {
+            font-size: 42px;
+            color: #ff416c;
+            margin-bottom: 40px;
+        }
+
+        .certificate-item {
+            background: #1e1e1e;
+            padding: 30px;
+            margin: 30px auto;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(255, 65, 108, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            max-width: 1000px;
+        }
+
+        .certificate-item:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(255, 65, 108, 0.5);
+        }
+
+        .certificate-item img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-right: 30px;
+        }
+
+        .certificate-details {
+            text-align: left;
+            flex: 1;
+        }
+
+        .certificate-details h2 {
+            font-size: 26px;
+            color: #ff416c;
+        }
+
+        .certificate-details p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .project-links {
+            margin-top: 10px;
+        }
+
+        .project-links a {
+            padding: 12px;
+            background-color: #ff416c;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .project-links a:last-child {
+            background-color: #ff4b2b;
+        }
+
+
+         /* Modal (Pop-Up) Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 700px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9); /* Initial smaller state */
+            opacity: 0; /* Initial hidden state */
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: block;
+            transform: translate(-50%, -50%) scale(1); /* Modal scale to normal */
+            opacity: 1; /* Modal fully visible */
+        }
+
+        .modal img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Modal image styling */
+        .modal-image {
+            width: 100%; /* Make the image take the full width of the modal container */
+            max-width: 500px; /* Ensure the image doesn't exceed 500px in width */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Optional: Rounded corners for the image */
+            margin-bottom: 20px; /* Space between image and text */
+            object-fit: cover; /* Ensure image fills the container properly */
+        }
+
+        .view-project {
+    margin-left: 5px; /* Small gap on the left side of View Project */
+    padding: 10px; /* Padding of 10px */
+    background-color: #ff4b2b; /* Different background color */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+ /* View Project Button */
+        .view-project-btn {
+            display: block;
+            margin: 20px auto 10px;
+            padding: 8px 12px;
+            background: #ff416c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .view-project-btn:hover {
+            background: #ff4b2b;
+        }
+
+.close-btn {
+            background: #ff4b2b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+   .project-links {
+    display: flex;
+    justify-content: left; /* Align both links to the left */
+}
+
+.source-code {
+    margin-right: 5px; /* Small gap on the right side of Source Code */
+    padding: 10px; /* Padding of 10px */
+    background-color: #ff416c; /* Customize background */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+
+
+
+
+        /* Backdrop */
+        #backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        #backdrop.show {
+            display: block;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+ <header>
+        <nav>
+            <ul>
+               <li><a href="/">Home</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/achievements">Achievements</a></li>
+                <li><a href="/coding_profile">Profiles</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="certificates">
+        <h1>My Certificates</h1>
+
+        <div class="certificate-item"  onclick="openModal('modal-1')">
+            <img src="https://images.credly.com/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png" alt="AWS Cloud Practitioner">
+            <div class="certificate-details">
+                <h2>AWS Cloud Practitioner</h2>
+                <p>Certified in foundational AWS Cloud concepts.</p>
+                <ul>
+                    <li>Cloud computing fundamentals</li>
+                    <li>AWS services and infrastructure</li>
+                    <li>Security and compliance</li>
+                </ul>
+                <br>
+                <div class="project-links">
+                    <a href="https://www.credly.com/badges/4d7ccddb-6547-4fa7-bb0d-c5f0a369be43" target="_blank">View Badge</a>
+                    <a href="https://media-hosting.imagekit.io//6bf04fcb0d1d462f/AWS%20Certified%20Cloud%20Practitioner%20certificate%20(2)_page-0001.jpg?Expires=1833044983&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=UYrqFWsBNOxa3tiIsfbVqjxREpE8xhzh8ewH21GdP5rTT4CneBnq7Yz1C-HYPjNmBdZYpzUHwNCmd5oCSKJsas7CyhoiruKABxIoTovUhdcxgKPa9X8Dw2ez8XwsQZd1kKZykE3Otd5aCjyqXVMUdXdyZKCV5Gc2w78Rd-4at7VwE38iKkjeivjJ4h5L9tnMCfiUYlosvcpxtT8MPNTQ6PHjDS-G7M960nm8KTxnPI5tyG5Wh6MZ8l3m2G9eLZWTgjFSZBifQjP5IBCf3cJ-ktBIu~obFtjXAN53KqrOdhuCk~l9ruHAxKIS0Jau2904KHC4D13cWuJZbIKrsauCZg__" target="_blank">View Certificate</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="certificate-item" onclick="openModal('modal-2')">
+            <img src="https://th.bing.com/th/id/R.0e69f316943b305e35310be4d68b35e4?rik=0vh1zQjcq9czCw&riu=http%3a%2f%2fmorecrm.org%2fimages%2f03-aiassociate.png&ehk=Sv5NUnAnh4utZO5bcnEs58kNvj%2b0rpU65OPu3FK82Nc%3d&risl=&pid=ImgRaw&r=0" alt="Salesforce Certified AI Associate">
+            <div class="certificate-details">
+                <h2>Salesforce Certified AI Associate</h2>
+                <p>Gained expertise in AI integration within Salesforce.</p>
+                <ul>
+                    <li>AI-driven automation</li>
+                    <li>Salesforce AI tools</li>
+                    <li>Data analytics in CRM</li>
+                </ul>
+                <br>
+                <div class="project-links">
+                    <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=Y4fNyl6dPDgLWibXeVzObLxhRnJRz/MT0DXq+1tGomkUAkgObszRDPV5aFd8VBUh" target="_blank">View Badge</a>
+                    <a href="https://media-hosting.imagekit.io//9792d1e2699243b3/2200032874_salesforce_page-0001.jpg?Expires=1833045028&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=SQnbmzuh6tAifAPXTMRp9DpeBdpvYcoy1K-b-iHT40v9gfbm2TILvxWkkihIPGFYVgGCuYq2nWXfXmsQOtjrCfDpPalx7zAgmVA3D9elETDanaIg49La-7GGMftWXRYZubm5x5utd4WT2xfPQ7DiUHS-1P3rvRJPRvW1mL-xZ6a-FV8dh4QLVeGNTS8W2jQGA3LRwnLMHrShO11aAH8UHTmwGHkU9qTG6Y0NGzlKZ1wtYXJzGdv58Roxxngca87-M7BPanpLg5IAlmdkOKv~VK2G7D9wauh-mJX7mxeTj5EOdV4w52a9iDNic8cY0ONCm9wrsSnNNKfHlxbKzCi1hw__" target="_blank">View Certificate</a>
+                </div>
+            </div>
+        </div>
+        <div class="certificate-item" onclick="openModal('modal-3')">
+            <img src="https://media-hosting.imagekit.io//39e0cfbc3a994dcd/OIP%20(6).jpeg?Expires=1833044582&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=t0EJGDllOXEbIrdxHtKMxiZ87xTCl7heO4Dv85oD000xhvpatJW5gD7lkfxFSz8RZd1LaDnMpk0XoleTEeL2BXzeEnFf7EH7reaXzii1h4uNqKr6ybntClDef6l~y5kobGtif~YvL306Pr6xBU1vyki5t~5R9i1yV9YvZiyhOSIeATjPNDuuro22pnoR9Ay~70VTBbTp51y-q-dt6GEHF8fjtlPNYkbHhlbIjJHK5qgJlEe97K0lMN3~zRUVojxCLGJ0oZRljGBNnfU~htWig83G5CwouQ58bZRQ81mPAqVsOihXc5I1icrfEaA9098Dd24y5ORrHj01EGcEVwwQXg__" alt="Red Hat Certified Developer" alt="Salesforce Certified AI Associate">
+            <div class="certificate-details">
+               <h2>Red Hat Certified Enterprise Application Developer</h2>
+<p>Skilled in developing enterprise applications using Red Hat technologies.</p>
+<ul>
+    <li>Red Hat JBoss EAP</li>
+    <li>Red Hat OpenShift & Kubernetes</li>
+    <li>Microservices Architecture</li>
+    <li>Red Hat Ansible Automation</li>
+</ul>
+
+                <br>
+                <div class="project-links">
+                    <a href="https://www.credly.com/badges/b5a433e1-dd4c-4152-a7fe-57b387a04cb0/public_url" target="_blank">View Badge</a>
+                    <a href="https://media-hosting.imagekit.io//2ecbe7060c414d46/Red_Hat_Certified_Enterprise_Application_Developer_Badge20250115-27-8wbdqo_page-0001.jpg?Expires=1833045058&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=SJRK6nC4KiIuw5mGl4qCkCypqAa1qJISeHWPFT-aMnNcm4d6lJi0sNpVZcozwGMNss1TefpGbBdnFNbziZNN2p-IvdHwZDjPD4XAzHNyxvTzWaLvqvi2SewAgu8wUJxlPPWPMfsoZ3kDaL7tZj3VL9HjwIao~K9S3~BMwMAZz6JgSFeHgCWJf44IhQ9BpJ8OF7hTLSYUpo021HmMWnrdzsdL~SkZhwaGsuPAMq9lFcV9Csri0fNbRmFcrhhoFhzgqhYG8Jk6e1ON-bu~4sAzqabBr1KNeRH-KKrjNMzt-09~iDh4GsaqEa6CxtXDDIPYfAPPd5rmNE35vIdwW9u7Dw__" target="_blank">View Certificate</a>
+                </div>
+            </div>
+        </div>
+        <div class="certificate-item" onclick="openModal('modal-4')">
+            <img src="https://noticebard.com/wp-content/uploads/2022/08/AICTE-PG-GATE-Scholarship-2020-21.jpeg">
+            <div class="certificate-details">
+               <h2>AICTE AWS Cloud Virtual Internship</h2>
+<p>Completed virtual internship on AWS services and cloud infrastructure.</p>
+<ul>
+    <li>AWS Cloud Infrastructure, including S3, RDS, Lambda, and SageMaker for AI and Machine Learning</li>
+    <li>Salesforce AI tools integration and Data Analytics for CRM solutions in the cloud</li>
+    <li>Cloud security, compliance, application deployment, and cost optimization strategies</li>
+</ul>
+
+
+                <br>
+                <div class="project-links">
+                    <a href="https://media-hosting.imagekit.io//bbf05babca3b40ed/Cloud%20Virtual%20Internship%20EduSkills_page-0001.jpg?Expires=1833051064&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=vJ6vU8Y41ZuiNW~Gtjk26bxZk6JKTaZ~6PsUF6PlYHLJBA3cdLlWggquAXewgClkN8gwIiSH5jj-5Wr-cnO64fGyqz~L8aC8rHqmzu0dRRc5tq5YSPXZmvBanchVstPg~FSh135AiGUMMiLRZi5zSTGoLbBWfnfUIFAFD9UyZzrYUQfZuSIVG8p5reD4DuJj6EEOY3j9k3nTQZEJ-i4u00v4tidXMm0cffB0q4sqV-w-HmZunnIbUhkuUFtHg-gI7mrb0Z6InFYg5MSvCnRd5z2ftV9L0s5bN9X0EBcbEqVpAgtIVZt7DE6vVoxQo9hR0xBhFomamp1eF6fdKYF4Fw__" target="_blank">View Badge</a>
+                    <a href="https://media-hosting.imagekit.io//4a04f61d47d84e94/Cloud%20Virtual%20Internship%20AICTE.jpg?Expires=1833051051&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=sn4S3kumt6Qag1CO~bMu19fQwXgzrrvUX~htHSL2SQ-mXR6p85nLX8uZqgYhZNE3bEcWg4h6A16-Grz9ISnoYwTUb1jd0WNle257BgXJcWOfWw4BVp5i1hbXKxpLRu2GtZOxgfrHpIBDkdO5tI3FHso8m1~sDKM~Y0Pu6jDQByl82vNpr88Bhg751-Hy1dZokYtC4EfGWeD0SonDEmTl5XEkgN7Khy99oNsslTwr9H7zYFG2~lkdsTk52EQPo1iiznllE~uy7Sx34FLzb9IsmOm6eNz9Se5-6fyRv2s-vw5ojf2yU8ICRMC5Q64~mwBZ0mvIVuSgoO~PTBQ9eeTDIg__" target="_blank">View Certificate</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+<div id="modal-1" class="modal">
+<img src="https://media-hosting.imagekit.io//6bf04fcb0d1d462f/AWS%20Certified%20Cloud%20Practitioner%20certificate%20(2)_page-0001.jpg?Expires=1833044983&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=UYrqFWsBNOxa3tiIsfbVqjxREpE8xhzh8ewH21GdP5rTT4CneBnq7Yz1C-HYPjNmBdZYpzUHwNCmd5oCSKJsas7CyhoiruKABxIoTovUhdcxgKPa9X8Dw2ez8XwsQZd1kKZykE3Otd5aCjyqXVMUdXdyZKCV5Gc2w78Rd-4at7VwE38iKkjeivjJ4h5L9tnMCfiUYlosvcpxtT8MPNTQ6PHjDS-G7M960nm8KTxnPI5tyG5Wh6MZ8l3m2G9eLZWTgjFSZBifQjP5IBCf3cJ-ktBIu~obFtjXAN53KqrOdhuCk~l9ruHAxKIS0Jau2904KHC4D13cWuJZbIKrsauCZg__" alt="AWS Cloud Practitioner">
+            <div class="certificate-details">
+                <h2>AWS Cloud Practitioner</h2>
+                <p>Certified in foundational AWS Cloud concepts.</p>
+                <ul>
+                    <li>Cloud computing fundamentals</li>
+                    <li>AWS services and infrastructure</li>
+                    <li>Security and compliance</li>
+                </ul>
+                <br>
+
+    </div>
+    <div >
+    <a href="https://www.credly.com/badges/4d7ccddb-6547-4fa7-bb0d-c5f0a369be43" target="_blank" class="view-project-btn">Verify Badge</a>
+    <button class="close-btn" onclick="closeModal('modal-1')">Close</button>
+        </div>
+</div>
+
+
+ <div id="modal-2" class="modal">
+            <img src="https://media-hosting.imagekit.io//9792d1e2699243b3/2200032874_salesforce_page-0001.jpg?Expires=1833045028&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=SQnbmzuh6tAifAPXTMRp9DpeBdpvYcoy1K-b-iHT40v9gfbm2TILvxWkkihIPGFYVgGCuYq2nWXfXmsQOtjrCfDpPalx7zAgmVA3D9elETDanaIg49La-7GGMftWXRYZubm5x5utd4WT2xfPQ7DiUHS-1P3rvRJPRvW1mL-xZ6a-FV8dh4QLVeGNTS8W2jQGA3LRwnLMHrShO11aAH8UHTmwGHkU9qTG6Y0NGzlKZ1wtYXJzGdv58Roxxngca87-M7BPanpLg5IAlmdkOKv~VK2G7D9wauh-mJX7mxeTj5EOdV4w52a9iDNic8cY0ONCm9wrsSnNNKfHlxbKzCi1hw__" alt="Salesforce Certified AI Associate">
+            <div class="certificate-details">
+                <h2>Salesforce Certified AI Associate</h2>
+                <p>Certified in Salesforce Certified AI Associate</p>
+                <ul>
+                    <li>AI-driven automation</li>
+                    <li>Salesforce AI tools</li>
+                    <li>Data analytics in CRM</li>
+                </ul>
+                <br>
+
+    </div>
+    <div >
+    <a href="https://trailhead.salesforce.com/en/credentials/certification-detail-print/?searchString=Y4fNyl6dPDgLWibXeVzObLxhRnJRz/MT0DXq+1tGomkUAkgObszRDPV5aFd8VBUh" target="_blank" class="view-project-btn">Verify Badge</a>
+    <button class="close-btn" onclick="closeModal('modal-2')">Close</button>
+        </div>
+</div>
+
+
+ <div id="modal-3" class="modal">
+<img src="https://media-hosting.imagekit.io//2ecbe7060c414d46/Red_Hat_Certified_Enterprise_Application_Developer_Badge20250115-27-8wbdqo_page-0001.jpg?Expires=1833045058&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=SJRK6nC4KiIuw5mGl4qCkCypqAa1qJISeHWPFT-aMnNcm4d6lJi0sNpVZcozwGMNss1TefpGbBdnFNbziZNN2p-IvdHwZDjPD4XAzHNyxvTzWaLvqvi2SewAgu8wUJxlPPWPMfsoZ3kDaL7tZj3VL9HjwIao~K9S3~BMwMAZz6JgSFeHgCWJf44IhQ9BpJ8OF7hTLSYUpo021HmMWnrdzsdL~SkZhwaGsuPAMq9lFcV9Csri0fNbRmFcrhhoFhzgqhYG8Jk6e1ON-bu~4sAzqabBr1KNeRH-KKrjNMzt-09~iDh4GsaqEa6CxtXDDIPYfAPPd5rmNE35vIdwW9u7Dw__" >
+
+            <div class="certificate-details">
+                <h2>Red Hat Certified Enterprise Application Developer</h2>
+                <p>Certified in Red Hat Certified Enterprise Application Developer</p>
+                <p>Skilled in developing enterprise applications using Red Hat technologies.</p>
+<ul>
+    <li>Red Hat JBoss EAP</li>
+    <li>Red Hat OpenShift & Kubernetes</li>
+    <li>Microservices Architecture</li>
+    <li>Red Hat Ansible Automation</li>
+</ul>
+                <br>
+
+    </div>
+    <div >
+    <a href="https://www.credly.com/badges/b5a433e1-dd4c-4152-a7fe-57b387a04cb0/public_url" target="_blank" class="view-project-btn">Verify Badge</a>
+    <button class="close-btn" onclick="closeModal('modal-3')">Close</button>
+        </div>
+</div>
+
+
+ <div id="modal-4" class="modal">
+<img src="https://media-hosting.imagekit.io//4a04f61d47d84e94/Cloud%20Virtual%20Internship%20AICTE.jpg?Expires=1833051051&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=sn4S3kumt6Qag1CO~bMu19fQwXgzrrvUX~htHSL2SQ-mXR6p85nLX8uZqgYhZNE3bEcWg4h6A16-Grz9ISnoYwTUb1jd0WNle257BgXJcWOfWw4BVp5i1hbXKxpLRu2GtZOxgfrHpIBDkdO5tI3FHso8m1~sDKM~Y0Pu6jDQByl82vNpr88Bhg751-Hy1dZokYtC4EfGWeD0SonDEmTl5XEkgN7Khy99oNsslTwr9H7zYFG2~lkdsTk52EQPo1iiznllE~uy7Sx34FLzb9IsmOm6eNz9Se5-6fyRv2s-vw5ojf2yU8ICRMC5Q64~mwBZ0mvIVuSgoO~PTBQ9eeTDIg__" alt="AWS Cloud Practitioner">
+            <div class="certificate-details">
+                <h2>AICTE AWS Cloud Virtual Internship</h2>
+               <p>Completed virtual internship on AWS services and cloud infrastructure.</p>
+<ul>
+    <li>AWS Cloud Infrastructure, including S3, RDS, Lambda, and SageMaker for AI and Machine Learning</li>
+    <li>Salesforce AI tools integration and Data Analytics for CRM solutions in the cloud</li>
+    <li>Cloud security, compliance, application deployment, and cost optimization strategies</li>
+</ul>
+                <br>
+
+    </div>
+    <div >
+    <a href="https://media-hosting.imagekit.io//4a04f61d47d84e94/Cloud%20Virtual%20Internship%20AICTE.jpg?Expires=1833051051&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=sn4S3kumt6Qag1CO~bMu19fQwXgzrrvUX~htHSL2SQ-mXR6p85nLX8uZqgYhZNE3bEcWg4h6A16-Grz9ISnoYwTUb1jd0WNle257BgXJcWOfWw4BVp5i1hbXKxpLRu2GtZOxgfrHpIBDkdO5tI3FHso8m1~sDKM~Y0Pu6jDQByl82vNpr88Bhg751-Hy1dZokYtC4EfGWeD0SonDEmTl5XEkgN7Khy99oNsslTwr9H7zYFG2~lkdsTk52EQPo1iiznllE~uy7Sx34FLzb9IsmOm6eNz9Se5-6fyRv2s-vw5ojf2yU8ICRMC5Q64~mwBZ0mvIVuSgoO~PTBQ9eeTDIg__" target="_blank" class="view-project-btn">Verify Badge</a>
+    <button class="close-btn" onclick="closeModal('modal-4')">Close</button>
+        </div>
+</div>
+
+<div id="backdrop" class="backdrop"></div>
+
+<script>
+    // Open Modal
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('show');
+        document.getElementById('backdrop').classList.add('show');
+    }
+
+    // Close Modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('show');
+        document.getElementById('backdrop').classList.remove('show');
+    }
+</script>
+</body>
+</html>

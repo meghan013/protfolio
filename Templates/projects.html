@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #eee;
+            text-align: center;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 50px 10%;
+        }
+
+        .projects h1 {
+            font-size: 36px;
+            color: #ff416c;
+            margin-bottom: 30px;
+        }
+
+        /* Navigation */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        header nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Project Cards */
+        .project-item {
+            background: #1e1e1e;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .project-item img {
+            width: 250px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 20px;
+            align-self: center;
+        }
+
+        .project-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+        }
+
+        .project-details {
+            flex: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-details h2 {
+            color: #ff4b2b;
+            margin-bottom: 10px;
+        }
+
+        .project-details p {
+            margin-bottom: 10px;
+        }
+
+        .project-details ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .project-details ul li {
+            margin-bottom: 5px;
+        }
+
+        .technologies-card {
+            margin-top: 15px;
+        }
+
+        .technologies-card ul {
+            display: flex;
+            justify-content: flex-start;
+            list-style: none;
+            padding: 0;
+        }
+
+        .technologies-card ul li {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .technologies-card ul img {
+            width: 40px;
+            height: 40px;
+            display: block;
+            margin: 0 auto 5px;
+        }
+
+        .technologies-card ul span {
+            display: block;
+            font-size: 12px;
+            color: #ddd;
+        }
+
+        /* View Project Button */
+        .view-project-btn {
+            display: block;
+            margin: 20px auto 10px;
+            padding: 8px 12px;
+            background: #ff416c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .view-project-btn:hover {
+            background: #ff4b2b;
+        }
+
+        /* Modal (Pop-Up) Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 700px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9); /* Initial smaller state */
+            opacity: 0; /* Initial hidden state */
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 10px rgba(255, 65, 108, 0.3);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .modal.show {
+            display: block;
+            transform: translate(-50%, -50%) scale(1); /* Modal scale to normal */
+            opacity: 1; /* Modal fully visible */
+        }
+
+        .modal img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Modal image styling */
+        .modal-image {
+            width: 100%; /* Make the image take the full width of the modal container */
+            max-width: 500px; /* Ensure the image doesn't exceed 500px in width */
+            height: auto; /* Maintain aspect ratio */
+            border-radius: 10px; /* Optional: Rounded corners for the image */
+            margin-bottom: 20px; /* Space between image and text */
+            object-fit: cover; /* Ensure image fills the container properly */
+        }
+
+        /* Technologies Section Inside Modal */
+        .technologies {
+            margin: 15px 0;
+        }
+
+        .technologies h3 {
+            color: #ff416c;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .technologies ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            list-style: none;
+            padding: 0;
+        }
+
+        .technologies ul li {
+            margin: 10px;
+            text-align: center;
+        }
+
+        .technologies ul img {
+            width: 50px;
+            height: 50px;
+            display: block;
+            margin: 0 auto 5px;
+        }
+
+        .technologies ul span {
+            display: block;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        /* View Project Button */
+        .modal a {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 15px;
+            background: #ff416c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background 0.3s;
+        }
+
+        .modal a:hover {
+            background: #ff4b2b;
+        }
+
+        /* Close Button */
+        .close-btn {
+            background: #ff4b2b;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+   .project-links {
+    display: flex;
+    justify-content: left; /* Align both links to the left */
+}
+
+.source-code {
+    margin-right: 5px; /* Small gap on the right side of Source Code */
+    padding: 10px; /* Padding of 10px */
+    background-color: #ff416c; /* Customize background */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.view-project {
+    margin-left: 5px; /* Small gap on the left side of View Project */
+    padding: 10px; /* Padding of 10px */
+    background-color: #ff4b2b; /* Different background color */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+
+
+
+
+
+        /* Backdrop */
+        #backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        #backdrop.show {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/achievements">Achievements</a></li>
+                <li><a href="/coding_profile">Profiles</a></li>
+                <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="projects">
+    <h1>My Projects</h1>
+
+    <!-- Project 1: Online Voting System -->
+    <div class="project-item" onclick="openModal('modal-1')">
+        <img src="https://tse3.mm.bing.net/th?id=OIG2.WGLGMCD2SBczrEMIRbqR&pid=ImgGn" alt="Online Voting System">
+        <div class="project-details">
+            <h2>Online Voting System</h2>
+            <p>A secure web-based voting platform designed to ensure a seamless and transparent election process.</p>
+            <p>Key features include:</p>
+            <ul>
+                <li><strong>User Authentication</strong> – Secure registration and account management for voters, ensuring authorized access.</li>
+                <li><strong>Candidate Management</strong> – Simplified nomination and verification process for candidates, streamlining election operations.</li>
+                <li><strong>Automated Ballot Generation</strong> – Dynamic creation of digital ballots tailored to election specifics, ensuring consistency and efficiency.</li>
+                <li><strong>Secure Voting Mechanism</strong> – Confidential and tamper-proof vote casting, leveraging encryption and secure transmission protocols.</li>
+                <li><strong>Live Election Monitoring</strong> – Real-time tracking of voting activities, allowing administrators to monitor election progress.</li>
+                <li><strong>Automated Result Processing</strong> – Instant vote counting and result computation, reducing the need for manual tallying and errors.</li>
+                <li><strong>Comprehensive Audit Trail</strong> – Detailed logs of all voting transactions, ensuring transparency and providing verification in case of disputes.</li>
+            </ul>
+            <p>Technologies used in the development:</p>
+            <div class="technologies-card">
+                <ul>
+                    <li><img src="https://cdn0.iconfinder.com/data/icons/social-network-7/50/22-1024.png" alt="HTML"><span>HTML</span></li>
+                    <li><img src="https://th.bing.com/th/id/OIP.NccvSu6Gut1HXGwUTBKYKgHaH3?rs=1&pid=ImgDetMain" alt="CSS"><span>CSS</span></li>
+                    <li><img src="https://icon-library.com/images/django-icon/django-icon-17.jpg" alt="Django"><span>Django</span></li>
+                    <li><img src="https://freepngimg.com/download/android/72537-icons-python-programming-computer-social-tutorial.png" alt="Python"><span>Python</span></li>
+                    <li><img src="https://w7.pngwing.com/pngs/441/460/png-transparent-postgresql-plain-wordmark-logo-icon.png" alt="PostgreSQL"><span>PostgreSQL</span></li>
+                </ul>
+            </div>
+             <div class="project-links">
+    <a href="https://github.com/meghan013/online_voiting_systerm_modified" target="_blank" class="view-project-btn source-code">Source Code</a>
+    <a href="https://online-voiting-system.onrender.com/" target="_blank" class="view-project-btn view-project">View Project</a>
+</div>
+
+        </div>
+    </div>
+
+    <div class="project-item" onclick="openModal('modal-2')">
+    <img src="https://tse2.mm.bing.net/th?id=OIG1.D.ooLhMUMMkGP9WHiDtT&pid=ImgGn" alt="Book Recommendation System">
+    <div class="project-details">
+        <h2>Book Recommendation System</h2>
+        <p>A machine learning-based recommendation system that suggests books based on user preferences and history.</p>
+        <p>Key features include:</p>
+        <ul>
+            <li><strong>Personalized Recommendations</strong> – Suggests books based on user history and preferences.</li>
+            <li><strong>Collaborative Filtering</strong> – Utilizes algorithms to recommend books similar to those liked by other users.</li>
+            <li><strong>Content-Based Filtering</strong> – Recommends books based on similarities to books the user has rated highly.</li>
+            <li><strong>Recommendation Tuning</strong> – Adjusts suggestions based on feedback from the user.</li>
+        </ul>
+        <p>Technologies used in the development:</p>
+        <div class="technologies-card">
+            <ul>
+                <li><img src="https://cdn0.iconfinder.com/data/icons/social-network-7/50/22-1024.png" alt="HTML"><span>HTML</span></li>
+                <li><img src="https://th.bing.com/th/id/OIP.NccvSu6Gut1HXGwUTBKYKgHaH3?rs=1&pid=ImgDetMain" alt="CSS"><span>CSS</span></li>
+               <li><img src="https://freepngimg.com/download/android/72537-icons-python-programming-computer-social-tutorial.png" alt="Python"><span>Python</span></li>
+            <li><img src="https://th.bing.com/th/id/OIP.XMCKJqofnAiIMCJ3jpnRyAHaHa?rs=1&pid=ImgDetMain" alt="Scikit-learn"><span>Scikit-learn</span></li>
+                <li><img src="https://e7.pngegg.com/pngimages/509/951/png-clipart-flask-by-example-web-framework-python-bottle-bottle-text-logo.png" alt="Flask"><span>Flask</span></li>
+            </ul>
+        </div>
+       <div class="project-links">
+    <a href="https://github.com/meghan013/Book_Recommendation_System" target="_blank" class="view-project-btn source-code">Source Code</a>
+    <a href="https://bookrecomandation.vercel.app/" target="_blank" class="view-project-btn view-project">View Project</a>
+</div>
+
+
+
+    </div>
+</div>
+</section>
+
+<!-- Modal Pop-up -->
+<div id="modal-1" class="modal">
+
+    <h2>Online Voting System</h2>
+    <br>
+    <img class="modal-image" src="https://tse3.mm.bing.net/th?id=OIG2.WGLGMCD2SBczrEMIRbqR&pid=ImgGn" alt="Online Voting System">
+
+    <p>A secure and efficient platform for managing online voting processes. Built with Django and PostgreSQL.</p>
+    <div class="technologies">
+        <h3>Technologies Used:</h3>
+        <ul>
+            <li><img src="https://cdn0.iconfinder.com/data/icons/social-network-7/50/22-1024.png" alt="HTML"><span>HTML</span></li>
+            <li><img src="https://th.bing.com/th/id/OIP.NccvSu6Gut1HXGwUTBKYKgHaH3?rs=1&pid=ImgDetMain" alt="CSS"><span>CSS</span></li>
+            <li><img src="https://icon-library.com/images/django-icon/django-icon-17.jpg" alt="Django"><span>Django</span></li>
+            <li><img src="https://freepngimg.com/download/android/72537-icons-python-programming-computer-social-tutorial.png" alt="Python"><span>Python</span></li>
+            <li><img src="https://w7.pngwing.com/pngs/441/460/png-transparent-postgresql-plain-wordmark-logo-icon.png" alt="PostgreSQL"><span>PostgreSQL</span></li>
+        </ul>
+    </div>
+    <a href="https://online-voiting-system.onrender.com/" target="_blank" class="view-project-btn">View Project</a>
+    <button class="close-btn" onclick="closeModal('modal-1')">Close</button>
+</div>
+
+<div id="modal-2" class="modal">
+    <h2>Book Recommendation System</h2>
+    <br>
+    <img class="modal-image" src="https://tse2.mm.bing.net/th?id=OIG1.D.ooLhMUMMkGP9WHiDtT&pid=ImgGn" alt="Book Recommendation System">
+    <p>A machine learning-based recommendation system that suggests books based on user preferences and history.</p>
+    <div class="technologies">
+        <h3>Technologies Used:</h3>
+        <ul>
+            <li><img src="https://cdn0.iconfinder.com/data/icons/social-network-7/50/22-1024.png" alt="HTML"><span>HTML</span></li>
+            <li><img src="https://th.bing.com/th/id/OIP.NccvSu6Gut1HXGwUTBKYKgHaH3?rs=1&pid=ImgDetMain" alt="CSS"><span>CSS</span></li>
+            <li><img src="https://freepngimg.com/download/android/72537-icons-python-programming-computer-social-tutorial.png" alt="Python"><span>Python</span></li>
+            <li><img src="https://th.bing.com/th/id/OIP.XMCKJqofnAiIMCJ3jpnRyAHaHa?rs=1&pid=ImgDetMain" alt="Scikit-learn"><span>Scikit-learn</span></li>
+                <li><img src="https://e7.pngegg.com/pngimages/509/951/png-clipart-flask-by-example-web-framework-python-bottle-bottle-text-logo.png" alt="Flask"><span>Flask</span></li>
+        </ul>
+    </div>
+    <a href="https://bookrecomandation.vercel.app/" target="_blank" class="view-project-btn">View Project</a>
+    <button class="close-btn" onclick="closeModal('modal-2')">Close</button>
+</div>
+
+<div id="backdrop" class="backdrop"></div>
+
+<script>
+    // Open Modal
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('show');
+        document.getElementById('backdrop').classList.add('show');
+    }
+
+    // Close Modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('show');
+        document.getElementById('backdrop').classList.remove('show');
+    }
+</script>
+</body>
+</html>

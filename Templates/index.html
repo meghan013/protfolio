@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meghan Kumar's Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    overflow-x: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Navigation */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+header nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+header nav ul li {
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+header nav ul li a:hover {
+    color: #ff7043;
+}
+
+/* Hero Section */
+.hero {
+    background-image: url('https://wallpaperaccess.com/full/5651986.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    animation: fadeIn 2s ease-in;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    z-index: 1;
+    animation: slideUp 2s ease-out;
+}
+
+.name {
+    font-size: 60px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    animation: bounceIn 1.5s ease-in-out;
+}
+
+.intro {
+    font-size: 24px;
+    font-weight: 300;
+    margin-top: 20px;
+    animation: fadeIn 3s ease-in-out;
+}
+
+/* About Me Section */
+.about {
+    padding: 50px;
+    text-align: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    max-width: 1200px;
+    border-radius: 10px;
+    background-color: #1c1c1c;
+    animation: fadeIn 3s ease-in-out;
+}
+
+.about h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.about p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #fff;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Skills Section */
+.skills {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 50px;
+    text-align: center;
+}
+
+.skills h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.skill-category {
+    margin-bottom: 40px;
+}
+
+.skill-category h3 {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.skill-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
+}
+
+/* Skills Section */
+.skill {
+    color: white;
+    padding: 20px; /* Reduced padding */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 120px; /* Adjusted height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px; /* Space between the skills */
+    background-color: transparent; /* Removed the orange background */
+}
+
+.skill:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.skill img {
+    max-width: 60px; /* Enlarged the icons */
+    margin-bottom: 15px; /* Adjusted space between icon and text */
+}
+
+.skill i {
+    font-size: 40px; /* Slightly increased icon size */
+    margin-bottom: 15px;
+}
+
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 14px;
+    color: #fff;
+}
+
+.profiles {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 50px;
+    text-align: center;
+
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+
+}
+
+.profiles h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.profile-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
+}
+
+.profile {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.profile a {
+    color: white;
+    text-decoration: none;
+}
+
+.profile a:hover {
+    color: #ff7043;
+}
+
+.profile img {
+    margin-bottom: 15px;
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { transform: translateY(50px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/achievements">Achievements</a></li>
+                <li><a href="/coding_profile">Profiles</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <h1 class="name">Meghan Kumar Andrapu</h1>
+            <p class="intro">A passionate Data Science and Web Developer</p>
+            <section class="about">
+        <h2>About Me</h2>
+        <p>
+            I'm currently a student at KL University, Vijayawada, pursuing a BTech in Computer Science and Engineering with a specialization in Data Science and Big Data Analytics. I am fluent in English, Hindi, Odia, and Telugu.
+            <br><br>
+            My interests lie in Data Science, Machine Learning, and Web Development. I am passionate about solving real-world problems with data and creating web applications that are both functional and user-friendly. In addition to my technical skills, I am proficient in tools like Power BI and Excel for data analysis.
+        </p>
+    </section>
+        </div>
+    </section>
+
+ <section class="profiles">
+    <h2>Profiles</h2>
+    <div class="profile-links">
+        <div class="profile">
+            <a href="https://www.linkedin.com/in/meghan-kumar-andrapu-baa35b260/" target="_blank">
+                <img src="https://venterra.com/wp-content/uploads/2016/05/LI-Logo-Transparent.png" alt="LinkedIn" width="60" height="60">
+                LinkedIn
+            </a>
+        </div>
+        <div class="profile">
+            <a href="https://github.com/meghan013" target="_blank">
+                <img src="https://static-00.iconduck.com/assets.00/github-icon-2048x2048-91rgqivh.png" alt="GitHub" width="60" height="60">
+                GitHub
+            </a>
+        </div>
+
+        <div class="profile">
+    <a href="https://www.codechef.com/users/meghan_013" target="_blank">
+        <img src="https://s3.amazonaws.com/discourseproduction/original/1X/ba28115bd3d5badf6cce0eb175d5875dadee3b12.png" alt="CodeChef" width="60" height="60">
+        CodeChef
+    </a>
+</div>
+<div class="profile">
+    <a href="https://leetcode.com/u/meghan_013/" target="_blank">
+        <img src="https://cdn.iconscout.com/icon/free/png-512/leetcode-3628885-3030025.png" alt="LeetCode" width="60" height="60">
+        LeetCode
+    </a>
+</div>
+
+    </div>
+</section>
+<section class="skills">
+    <h2>Skills</h2>
+
+   <div class="skill-category">
+    <h3>Programming Languages</h3>
+    <div class="skill-list">
+        <div class="skill">
+            <img src="https://cdn-icons-png.flaticon.com/256/5968/5968282.png" alt="Java" width="60" height="60">
+            Java
+        </div>
+
+         <div class="skill">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python" width="40" height="40">
+                Python
+            </div>
+        <div class="skill">
+            <img src="https://media-hosting.imagekit.io//4f5f980c9f094e63/c-plus-plus-Logo-ujudebug-e1617611636592-removebg-preview.png?Expires=1833101852&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=sIpVTfCk6eB33eaVgOMsoktLbpdcvhl26eyqhmutp-3K4MVvrgNm43RR9HpemET46fNy58ddQEajYwvBDFMSRBEe6j5UtbvD3Bj5m5JTzBgwakmwF3AVnHETMkYmmaiQUIn5e83m6ixCgl-K05la2e8ThMVN1OeHJCYnK3tWojbURh-h20q4sWtVzAy4pT8qp3H8X5ONeybKt2PaPyBz4hLc1qBphwcIEbrhbvw1lscFiCpsYYzmsh9OBqi0H~ZBRoFbH~AgNLN3aoMR6nO970IJcZJnrKGiOZbouAYwEzxJbtdlyeieYBxbhBpcb781l3Bo0lhysydh9brbeCcquw__" alt="C++" width="60" height="60">
+            C++
+        </div>
+        <div class="skill">
+            <img src="https://www.pinclipart.com/picdir/big/539-5392404_transparent-c-language-logo-png-clipart.png" alt="C" width="60" height="60">
+            C
+        </div>
+    </div>
+</div>
+
+
+    <div class="skill-category">
+        <h3>Frameworks & Technologies</h3>
+        <div class="skill-list">
+            <div class="skill">
+                <img src="https://flyclipart.com/thumbs/python-logo-clipart-drawing-flask-1172565.png" alt="Flask" width="40" height="40">
+                Flask
+            </div>
+            <div class="skill">
+                <img src="https://cdn.iconscout.com/icon/free/png-512/django-1-282754.png" alt="Django" width="40" height="40">
+                Django
+            </div>
+            <div class="skill">
+                <img src="https://cdn-icons-png.flaticon.com/512/9346/9346322.png" alt="Machine Learning" width="40" height="40">
+                Machine Learning
+            </div>
+            <div class="skill">
+                <img src="https://www.pngplay.com/wp-content/uploads/3/Amazon-Web-Services-AWS-Logo-Transparent-PNG.png" alt="AWS" width="40" height="40">
+                AWS
+            </div>
+            <div class="skill">
+                <img src="https://i1.wp.com/www.techbii.com/wp-content/uploads/2020/02/BigData-1024x682-1024x682-1.jpg?fit=1024%2C682&ssl=1" alt="Big Data" width="40" height="40">
+                Big Data
+            </div>
+        </div>
+    </div>
+
+    <div class="skill-category">
+    <h3>Tools</h3>
+    <div class="skill-list">
+        <div class="skill">
+            <img src="https://cdn.freelogovectors.net/wp-content/uploads/2023/11/power-bi-logo-freelogovectors.net_.png" alt="Power BI" width="60" height="60">
+            Power BI
+        </div>
+        <div class="skill">
+            <img src="https://www.pngmart.com/files/23/Excel-Icon-PNG-Isolated-HD.png" alt="Excel" width="60" height="60">
+            Excel
+        </div>
+        <div class="skill">
+            <img src="https://icon-library.com/images/database-png-icon/database-png-icon-22.jpg" alt="SQL" width="60" height="60">
+            SQL
+        </div>
+        <div class="skill">
+            <img src="https://icon-library.com/images/no-sql-icon/no-sql-icon-12.jpg" alt="NoSQL" width="60" height="60">
+            NoSQL
+        </div>
+    </div>
+</div>
+
+</section>
+
+
+
+
+
+    <footer>
+        <p>&copy; 2025 Meghan Kumar Andrapu</p>
+    </footer>
+
+</body>
+</html>
